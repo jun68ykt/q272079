@@ -1,3 +1,14 @@
+// 天気の表示文字列および画像ファイル名
+const WEATHERS = {
+  Thunderstorm: { label: '雷雨', img: 'clouds' },
+  Drizzle: { label: '霧雨', img: 'rains' },
+  Rain: { label: '雨', img: 'rains' },
+  Snow: { label: '雪', img: 'snow' },
+  Atmosphere: { label: '濃霧', img: 'snow' },
+  Clear: { label: '晴れ', img: 'clear' },
+  Clouds: { label: '曇り', img: 'clouds' }
+};
+
 // 日にちを入れるターゲットを定義する
 const nowTimeTarget = document.getElementById('nowData');
 const nextTimeTarget = document.getElementById('nextData');
@@ -53,27 +64,11 @@ if (navigator.geolocation) {
 
         /*取得した天気によって
         「天気の名前」「天気の画像を」を挿入*/
-        if (weatherName === "Thunderstorm") {
-          patternTextTarget.innerHTML = '雷雨';
-          patternImgTarget.innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (weatherName === "Drizzle") {
-          patternTextTarget.innerHTML = '霧雨';
-          patternImgTarget.innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (weatherName === "Rain") {
-          patternTextTarget.innerHTML = '雨';
-          patternImgTarget.innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (weatherName === "Snow") {
-          patternTextTarget.innerHTML = '雪';
-          patternImgTarget.innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (weatherName === "Atmosphere") {
-          patternTextTarget.innerHTML = '濃霧';
-          patternImgTarget.innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (weatherName === "Clear") {
-          patternTextTarget.innerHTML = '晴れ';
-          patternImgTarget.innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (weatherName === "Clouds") {
-          patternTextTarget.innerHTML = '曇り';
-          patternImgTarget.innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
+        const weather = WEATHERS[weatherName];
+        if (weather) {
+          const { label, img } = weather;
+          patternTextTarget.innerHTML = label;
+          patternImgTarget.innerHTML = `<img src="asset/img/${img}.png" alt="${label}">`;
         } else {
           return false;
         }
@@ -90,221 +85,16 @@ if (navigator.geolocation) {
       nextRequest.onload = function () {
         const data = this.response;
 
-        // 特定の時間の天気情報を取得
-        const nextWEather_6 = data.list[7].weather[0].main; // 翌日の6時
-        const nextWEather_9 = data.list[8].weather[0].main; // 翌日の9時
-        const nextWEather_12 = data.list[9].weather[0].main; // 翌日の12時
-        const nextWEather_15 = data.list[10].weather[0].main; // 翌日の15時
-        const nextWEather_18 = data.list[11].weather[0].main; // 翌日の18時
-
-        // 取得した天気によって「天気の画像を」を挿入
-        if (nextWEather_6 === "Thunderstorm") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (nextWEather_6 === "Drizzle") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (nextWEather_6 === "Rain") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (nextWEather_6 === "Snow") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (nextWEather_6 === "Atmosphere") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (nextWEather_6 === "Clear") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (nextWEather_6 === "Clouds") {
-          document.getElementById('nextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (nextWEather_9 === "Thunderstorm") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (nextWEather_9 === "Drizzle") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (nextWEather_9 === "Rain") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (nextWEather_9 === "Snow") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (nextWEather_9 === "Atmosphere") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (nextWEather_9 === "Clear") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (nextWEather_9 === "Clouds") {
-          document.getElementById('nextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (nextWEather_12 === "Thunderstorm") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (nextWEather_12 === "Drizzle") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (nextWEather_12 === "Rain") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (nextWEather_12 === "Snow") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (nextWEather_12 === "Atmosphere") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (nextWEather_12 === "Clear") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (nextWEather_12 === "Clouds") {
-          document.getElementById('nextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (nextWEather_15 === "Thunderstorm") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (nextWEather_15 === "Drizzle") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (nextWEather_15 === "Rain") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (nextWEather_15 === "Snow") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (nextWEather_15 === "Atmosphere") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (nextWEather_15 === "Clear") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (nextWEather_15 === "Clouds") {
-          document.getElementById('nextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (nextWEather_18 === "Thunderstorm") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (nextWEather_18 === "Drizzle") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (nextWEather_18 === "Rain") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (nextWEather_18 === "Snow") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (nextWEather_18 === "Atmosphere") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (nextWEather_18 === "Clear") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (nextWEather_18 === "Clouds") {
-          document.getElementById('nextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-
-        // 特定の時間の天気情報を取得
-        const nextTemp_6 = Math.round(data.list[7].main.temp); // 翌日の6時の気温
-        const nextTemp_9 = Math.round(data.list[8].main.temp); // 翌日の9時の気温
-        const nextTemp_12 = Math.round(data.list[9].main.temp); // 翌日の12時の気温
-        const nextTemp_15 = Math.round(data.list[10].main.temp); // 翌日の15時の気温
-        const nextTemp_18 = Math.round(data.list[11].main.temp); // 翌日の18時の気温
-
-        // 特定の時間に気温を代入
-        document.getElementById('nextTemp_6').innerHTML = nextTemp_6 + '℃';
-        document.getElementById('nextTemp_9').innerHTML = nextTemp_9 + '℃';
-        document.getElementById('nextTemp_12').innerHTML = nextTemp_12 + '℃';
-        document.getElementById('nextTemp_15').innerHTML = nextTemp_15 + '℃';
-        document.getElementById('nextTemp_18').innerHTML = nextTemp_18 + '℃';
-
-        // 特定の時間の天気情報を取得
-        const afNextWEather_6 = data.list[15].weather[0].main; // 翌翌日の6時
-        const afNextWEather_9 = data.list[16].weather[0].main; // 翌翌日の9時
-        const afNextWEather_12 = data.list[17].weather[0].main; // 翌翌日の12時
-        const afNextWEather_15 = data.list[18].weather[0].main; // 翌翌日の15時
-        const afNextWEather_18 = data.list[19].weather[0].main; // 翌翌日の18時
-
-        // 取得した天気によって「天気の画像を」を挿入
-        if (afNextWEather_6 === "Thunderstorm") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (afNextWEather_6 === "Drizzle") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (afNextWEather_6 === "Rain") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (afNextWEather_6 === "Snow") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (afNextWEather_6 === "Atmosphere") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (afNextWEather_6 === "Clear") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (afNextWEather_6 === "Clouds") {
-          document.getElementById('afNextWEather_6').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (afNextWEather_9 === "Thunderstorm") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (afNextWEather_9 === "Drizzle") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (afNextWEather_9 === "Rain") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (afNextWEather_9 === "Snow") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (afNextWEather_9 === "Atmosphere") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (afNextWEather_9 === "Clear") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (afNextWEather_9 === "Clouds") {
-          document.getElementById('afNextWEather_9').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (afNextWEather_12 === "Thunderstorm") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (afNextWEather_12 === "Drizzle") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (afNextWEather_12 === "Rain") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (afNextWEather_12 === "Snow") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (afNextWEather_12 === "Atmosphere") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (afNextWEather_12 === "Clear") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (afNextWEather_12 === "Clouds") {
-          document.getElementById('afNextWEather_12').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (afNextWEather_15 === "Thunderstorm") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (afNextWEather_15 === "Drizzle") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (afNextWEather_15 === "Rain") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (afNextWEather_15 === "Snow") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (afNextWEather_15 === "Atmosphere") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (afNextWEather_15 === "Clear") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (afNextWEather_15 === "Clouds") {
-          document.getElementById('afNextWEather_15').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-        if (afNextWEather_18 === "Thunderstorm") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="雷雨">';
-        } else if (afNextWEather_18 === "Drizzle") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/rains.png" alt="霧雨">';
-        } else if (afNextWEather_18 === "Rain") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/rains.png" alt="雨">';
-        } else if (afNextWEather_18 === "Snow") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/snow.png" alt="雪">';
-        } else if (afNextWEather_18 === "Atmosphere") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="濃霧">';
-        } else if (afNextWEather_18 === "Clear") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/clear.png" alt="晴れ">';
-        } else if (afNextWEather_18 === "Clouds") {
-          document.getElementById('afNextWEather_18').innerHTML = '<img src="asset/img/clouds.png" alt="曇り">';
-        } else {
-          return false;
-        }
-
-        // 特定の時間の気温を取得
-        const afNextTemp_6 = Math.round(data.list[15].main.temp); // 翌翌日の6時の気温
-        const afNextTemp_9 = Math.round(data.list[16].main.temp); // 翌翌日の9時の気温
-        const afNextTemp_12 = Math.round(data.list[17].main.temp); // 翌翌日の12時の気温
-        const afNextTemp_15 = Math.round(data.list[18].main.temp); // 翌翌日の15時の気温
-        const afNextTemp_18 = Math.round(data.list[19].main.temp); // 翌翌日の18時の気温
-
-        // 特定の時間に気温を代入
-        document.getElementById('afNextTemp_6').innerHTML = afNextTemp_6 + '℃';
-        document.getElementById('afNextTemp_9').innerHTML = afNextTemp_9 + '℃';
-        document.getElementById('afNextTemp_12').innerHTML = afNextTemp_12 + '℃';
-        document.getElementById('afNextTemp_15').innerHTML = afNextTemp_15 + '℃';
-        document.getElementById('afNextTemp_18').innerHTML = afNextTemp_18 + '℃';
+        // 翌日および翌々日の6,9,12,15,18時の天気情報を取得し、対応する画像と気温を設定
+        const cells = document.querySelectorAll('.weather-dot-cell');
+        [...data.list.slice(7, 12), ...data.list.slice(15, 20)].forEach((e, i) => {
+          const weather = WEATHERS[e.weather[0].main];
+          if (weather) {
+            const { label, img } = weather;
+            cells[i].querySelector('.weather-dot').innerHTML = `<img src="asset/img/${img}.png" alt="${label}">`;
+            cells[i].querySelector('.weather-temp').textContent = `${e.main.temp}℃`;
+          }
+        });
       };
       nextRequest.send();
     },
